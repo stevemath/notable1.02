@@ -1,7 +1,14 @@
 {
-    "name": "Notable1.02",
-    "version": "1.0.0",
-    "private": true,
-    "dependencies": {
+  "name": "Notable1.02",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "cordova-plugin-ble": "^2.0.1",
+    "cordova-plugin-eddystone": "^1.3.0"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-eddystone": {}
     }
+  }
 }
