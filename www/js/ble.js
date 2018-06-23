@@ -4,7 +4,7 @@
     alert("scanning")
     function success(beacon) {
         alert("success");
-        alert(JSON.stringify(beacon)
+        alert(JSON.stringify(beacon));
     }
 
     function error() { alert("error") }
