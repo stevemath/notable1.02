@@ -35,7 +35,9 @@
         });
     };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
+
+      
 
        // var navigationShowMoreView = $('#navigation-show-more-view').find('ul'),
         //    allItems = $('#navigation-container-more').find('a'),
@@ -88,7 +90,14 @@
             if (navigator && navigator.splashscreen) {
                 navigator.splashscreen.hide();
             }
-            bootstrap();
+           
+
+           
+                alert("check bluetooth");
+
+                scanBLE.startScan();
+ bootstrap();
+           
         }, false);
     } else {
         bootstrap();

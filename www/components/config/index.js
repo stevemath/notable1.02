@@ -7,7 +7,7 @@ app.config = kendo.observable({
          beacons : [],
     onShow: function () {
         console.log("home");
-        console.log(app['home']);
+       // console.log(app['home']);
         console.log(this);
         kendo.bind(this.element[0], app['config'].strings['config'])
 
@@ -22,9 +22,8 @@ app.config = kendo.observable({
         beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         app.config.beacons.push(beacon);
         alert(JSON.stringify(app.config.beacons));
-        alert("check bluetooth");
+
        
-        scanBLE.startScan();
 
     },
     afterShow: function() {}

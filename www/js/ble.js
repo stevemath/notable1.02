@@ -2,15 +2,15 @@
 
     startScan: function () {
         $("#BTLog").html("");
-        alert(ble);
+       
+        alert("Start Scanning?");
+        connected = false;
+        // alert(ble);
         ble.enable(function () {
             alert("bluetooth enabled");
         }, function () {
             alert("bluetooth NOT enabled");
         });
-        alert("Start Scanning?");
-        connected = false;
-
         setInterval(function () {
 
             if (isScanning == false) {
