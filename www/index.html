@@ -1,31 +1,101 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-	<!--
-		Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
-		For details, see http://go.microsoft.com/fwlink/?LinkID=617521
-	-->
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
 
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<meta name="format-detection" content="telephone=no">
-	<meta name="msapplication-tap-highlight" content="no">
-	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-	<link rel="stylesheet" type="text/css" href="css/index.css">
-	<title>Notable1.02</title>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+
+
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width">
+	<link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet">
+
+	<link href="styles/overrides.css" rel="stylesheet">
+	<link href="styles/main.css" rel="stylesheet">
+	<link href="styles/appStyles.css" rel="stylesheet" />
+	<link href="styles/fontawesome-all.min.css" rel="stylesheet" />
+	<!--
+		<link href="styles/font-awesome.min.css" rel="stylesheet" />
+
+			   <script src="cordova.js"></script>
+	<script src="js/utilities.js"></script>
+		<script src="js/data.js"></script>
+		<script src="components/home/index.js"></script>
+	<script src="components/login/index.js"></script>
+			-->
 	<script src="js/ble.js"></script>
+	<script src="kendo/js/jquery.min.js"></script>
+	<script src="kendo/js/kendo.mobile.min.js"></script>
+	<script src="app.js"></script>
+
+
 </head>
-	<body>
-		<div class="app">
-			<h1>Notable 1.02</h1>
-			<div id="deviceready" class="blink">
-				<p class="event listening">Connecting to Device</p>
-				<p class="event received">Device is Ready</p>
+
+<body id="kendoUiMobileApp">
+	
+	<script src="components/config/index.js"></script>
+
+	<div data-role="layout" data-id="config">
+		<header data-role="header">
+			<div class="view-title upper-left" data-bind="text:title"></div>
+			<div class="nav-container">
+				<div class="nav-wrapper" data-role="scrollview" data-content-height="100%" data-page-size="0.5">
+					<ul id="nav">
+						<li onclick="navTo('')">Scan</li>
+						<li onclick="navTo('')">Register</li>
+						<li>Content</li>
+						<li>Reports</li>
+						<li>Settings</li>
+
+					</ul>
+					<div class="clear"></div>
+				</div>
 			</div>
-		</div>
-		<script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="scripts/platformOverrides.js"></script>
-		<script type="text/javascript" src="scripts/index.js"></script>
-		<script src="js/ble.js"></script>
-	</body>
+		</header>
+
+	</div>
+	<div data-role="layout" data-id="main">
+		<header data-role="header">
+			<div class="view-title upper-left" data-bind="text:title"></div>
+			<div class="nav-container">
+				<div class="nav-wrapper" data-role="scrollview" data-content-height="100%" data-page-size="0.5">
+					<ul id="nav">
+						<li onclick="navTo('home')">Envelopes</li>
+						<li onclick="navTo('transactions')">Transactions</li>
+						<li>Accounts</li>
+						<li>Reports</li>
+						<li>Settings</li>
+
+					</ul>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</header>
+
+	</div>
+
+	<div data-role="layout" data-id="editTransactionsLayout">
+		<header data-role="header">
+			<div class="view-title upper-left" data-bind="text:title"></div>
+			<div class="btn-container">
+				<div data-role="backbutton"> <i class="fa fa-chevron-circle-left"></i></div>
+				<div class="delete-trans-item icon" data-role="button"><i class="fa fa-trash-alt"></i></div>
+			</div>
+		</header>
+
+	</div>
+
+
+	<div id="notify" class="notify-pop-up">
+		<span class="notify-pop-up__content"></span>
+	</div>
+
+
+
+	<!--  start index html save -->
+	<!--  end index html save -->
+	<!-- START_CUSTOM_CODE_kendoUiMobileApp -->
+	<!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+	<!-- END_CUSTOM_CODE_kendoUiMobileApp -->
+</body>
+
 </html>

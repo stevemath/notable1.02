@@ -95,7 +95,7 @@
            
                 alert("check bluetooth");
 
-                scanBLE.startScan();
+                scanBLE.checkBLE();
  bootstrap();
            
         }, false);
