@@ -39,37 +39,23 @@
 
         console.log(window.cordova)
         if (window.cordova) {
-            alert("cordova detected")
-            //       document.addEventListener('deviceready', function () {
-
-            //           alert("cordova detected")
-            //           if (navigator && navigator.splashscreen) {
-            //               navigator.splashscreen.hide();
-            //           }
-
-
-
-            //               alert("check bluetooth");
-
-            //              // scanBLE.checkBLE();
-            //bootstrap();
-
-            //       }, false);
+           // alert("cordova detected")
+            
 
 
             document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
             function onDeviceReady() {
-                alert("device ready")
+              //  alert("device ready")
                 if (navigator && navigator.splashscreen) {
                     navigator.splashscreen.hide();
                 }
 
 
 
-                alert("check bluetooth");
+                //alert("check bluetooth");
 
-                // scanBLE.checkBLE();
+                 scanBLE.checkBLE();
                 bootstrap();
             }
 
@@ -78,16 +64,7 @@
             bootstrap();
         }
 
-       // var navigationShowMoreView = $('#navigation-show-more-view').find('ul'),
-        //    allItems = $('#navigation-container-more').find('a'),
-        //    navigationShowMoreContent = '';
-
-        //    allItems.each(function(index) {
-        //        navigationShowMoreContent += '<li>' + allItems[index].outerHTML + '</li>';
-        //    });
-
-        //     navigationShowMoreView.html(navigationShowMoreContent);
-        //kendo.bind($('#navigation-show-more-view'), app.showMore.viewModel);
+     
 
         app.notification = $("#notify");
       
