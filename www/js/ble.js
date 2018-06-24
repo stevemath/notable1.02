@@ -1,11 +1,11 @@
 ﻿var scanBLE = {
     checkBLE: function () {
-        if (ble != undefined) {
-            alert("ble");
-        } else {
-            alert("no ble")
-        }
-
+        //if (ble != undefined) {
+        //    alert("ble");
+        //} else {
+        //    alert("no ble")
+        //}
+        alert("enable ble")
         ble.enable(function () {
             alert("bluetooth enabled");
         }, function () {
