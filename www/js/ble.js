@@ -1,16 +1,23 @@
 ﻿var scanBLE = {
+    checkBLE: function () {
+        if (ble != undefined) {
+            alert("ble");
+        } else {
+            alert("no ble")
+        }
 
-    startScan: function () {
-       // $("#BTLog").html("");
-       
-        alert("Start Scanning?");
-        connected = false;
-        // alert(ble);
         ble.enable(function () {
             alert("bluetooth enabled");
         }, function () {
             alert("bluetooth NOT enabled");
         });
+    },
+    startScan: function () {
+       // $("#BTLog").html("");
+       
+        alert("Start Scanning?");
+        connected = false;
+       
         setInterval(function () {
 
             if (isScanning == false) {
