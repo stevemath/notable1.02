@@ -13,8 +13,19 @@ app.config = kendo.observable({
         
         
        
-       
-       // scanBLE.startScan();
+        $("#btnScanBT").on("click", function () {
+            scanBLE.startScan();
+        });
+
+
+        $("#btnStopScanBT").on("click", function () {
+            $("#BTLog").html("");
+            ble.stopScan(function () {
+                scanBLE.isScanning = false;
+
+            });
+            scanBLE.connected = false;
+        });
        
 
     },

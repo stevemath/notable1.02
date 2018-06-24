@@ -36,7 +36,7 @@ var scanBLE = {
         alert(JSON.stringify(app.config.beacons));
     },
     startScan: function () {
-       // $("#BTLog").html("");
+        $("#BTLog").html("");
         var self = this;
         alert("Start Scanning?");
         connected = false;
@@ -96,7 +96,7 @@ var scanBLE = {
                         self.beacons[bIdx].rssi = [];
                         $("#BTLog").prepend(JSON.stringify(device) + "<br><br>");
                         var id = device.id;
-                       // app.home.connectTo(id, bIdx);
+                       self.connectTo(id, bIdx);
                         alert("beacon found");
                         self.beacons[bIdx].samples = 0;
                         self.beacons[bIdx].totalRSSI = 0;
@@ -124,9 +124,29 @@ var scanBLE = {
 
         });
         self.connected = false;
+    },
+
+      connectTo: function (devId, idx) {
+
+
+        $("#BTLog").prepend("Connecting to: " + devId + "<br><br>");
+        ble.stopScan(function () { $("#BTLog").prepend("SCAN TERMINATED<br/>") });
+        alert("start content: " + idx + "-" + devId);
+        //ble.connect(devId, function(data){ 
+        // $("#BTLog").append("Services: <br/>" + JSON.stringify(data) + "<br><br>");
+
+
+
+
+        //}, function(data){
+        //    alert("Failed to connect");
+        //    $("#BTLog").append("FAILURE: " + JSON.stringify(data) + "<br><br><br><br>");
+        //  });
+
+
+
+
     }
-
-
 
 
 }
