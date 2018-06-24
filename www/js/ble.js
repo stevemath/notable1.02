@@ -1,7 +1,7 @@
 ﻿var scanBLE = {
 
     startScan: function () {
-        $("#BTLog").html("");
+       // $("#BTLog").html("");
        
         alert("Start Scanning?");
         connected = false;
