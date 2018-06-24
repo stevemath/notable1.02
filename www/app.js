@@ -85,7 +85,8 @@
         app.notification.fadeIn("slow").delay(autoHideAfter).fadeOut("slow");
     };
 
-  //  if (window.cordova) {
+    if (window.cordova) {
+        alert("cordova detected")
         document.addEventListener('deviceready', function() {
             if (navigator && navigator.splashscreen) {
                 navigator.splashscreen.hide();
@@ -99,9 +100,9 @@
  bootstrap();
            
         }, false);
-   // } else {
-     //   bootstrap();
-    //}
+    } else {
+        bootstrap();
+    }
 
     app.keepActiveState = function _keepActiveState(item) {
         var currentItem = item;
