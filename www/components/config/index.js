@@ -1,10 +1,7 @@
 'use strict';
 
 app.config = kendo.observable({
-    connected: false,
-    isScanning: false,
-     maxSampling : 10,
-         beacons : [],
+ 
     onShow: function () {
         console.log("home");
        // console.log(app['home']);
@@ -16,12 +13,7 @@ app.config = kendo.observable({
         
         
        
-        var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
-        app.config.beacons.push(beacon);
-
-        beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
-        app.config.beacons.push(beacon);
-        alert(JSON.stringify(app.config.beacons));
+       
        // scanBLE.startScan();
        
 

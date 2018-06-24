@@ -11,27 +11,41 @@
 //    }
 //}
 var scanBLE = {
+    connected: false,
+    isScanning: false,
+    maxSampling: 10,
+    beacons: [],
     checkBLE: function () {
        
         alert("enable ble")
         ble.enable(function () {
             alert("bluetooth enabled");
-            scanBLE.startScan();
+           // scanBLE.startScan();
         }, function () {
             alert("bluetooth NOT enabled");
         });
     },
+    init: function () {
+        var self = this;
+
+        var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        self.beacons.push(beacon);
+
+        beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        self.beacons.push(beacon);
+        alert(JSON.stringify(app.config.beacons));
+    },
     startScan: function () {
        // $("#BTLog").html("");
-       
+        var self = this;
         alert("Start Scanning?");
         connected = false;
        
         setInterval(function () {
 
-            if (isScanning == false) {
+            if (self.isScanning == false) {
                 // alert("start scanning");
-                isScanning = true;
+                self.isScanning = true;
                 ble.startScanWithOptions([], { reportDuplicates: true }, function (device) {
                     // alert(JSON.stringify(device));
 
@@ -39,7 +53,7 @@ var scanBLE = {
                     $("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
                     var bIdx = -1;
                     var topRSSI = -10000;
-                    $.map(beacons, function (elem, index) {
+                    $.map(self.beacons, function (elem, index) {
                         if (elem.id == device.id.toString()) {
                             alert("beacon match")
                             if (elem.avgRSSI > topRSSI) {
@@ -58,34 +72,34 @@ var scanBLE = {
                         // $("#BTLog").prepend( beacons[0].samples + "<br><br>");
                         // $("#BTLog").prepend( beacons[0].totalRSSI + "<br><br>");
 
-                        beacons[bIdx].samples = beacons[bIdx].samples + 1;
-                        beacons[bIdx].rssi.push(parseInt(device.rssi));
-                        if (beacons[bIdx].rssi.length > maxSampling) {
-                            beacons[bIdx].rssi.shift();
+                        self.beacons[bIdx].samples = self.beacons[bIdx].samples + 1;
+                        self.beacons[bIdx].rssi.push(parseInt(device.rssi));
+                        if (self.beacons[bIdx].rssi.length > self.maxSampling) {
+                            self.beacons[bIdx].rssi.shift();
                         }
                         //$("#BTLog").prepend(beacons[bIdx].rssi.join(",") + "<br><br>");
 
-                        var sum = beacons[bIdx].rssi.reduce((a, b) => a + b, 0);
-                        beacons[bIdx].totalRSSI = sum;
+                        var sum = self.beacons[bIdx].rssi.reduce((a, b) => a + b, 0);
+                        self.beacons[bIdx].totalRSSI = sum;
 
-                        beacons[bIdx].avgRSSI = beacons[bIdx].totalRSSI / beacons[bIdx].rssi.length;
-                        $("#BTLog").prepend(sum + " ... " + beacons[bIdx].avgRSSI + "<br><br>");
+                        self.beacons[bIdx].avgRSSI = self.beacons[bIdx].totalRSSI / self.beacons[bIdx].rssi.length;
+                        $("#BTLog").prepend(sum + " ... " + self.beacons[bIdx].avgRSSI + "<br><br>");
 
-                        var d = calcDistance(4, beacons[bIdx].avgRSSI);
+                        var d = calcDistance(4, self.beacons[bIdx].avgRSSI);
                         //alert(d);
                         $("#BTLog").prepend("***" + d + " m " + " " + device.rssi + "<br><br>");
                     } else {
                         // $("#BTLog").prepend( d + " m <br><br>");
                     }
 
-                    if (device.id == beacons[bIdx].id && beacons[bIdx].avgRSSI > -55 && beacons[bIdx].samples >= maxSampling) {
-                        beacons[bIdx].rssi = [];
+                    if (device.id == self.beacons[bIdx].id && self.beacons[bIdx].avgRSSI > -55 && self.beacons[bIdx].samples >= maxSampling) {
+                        self.beacons[bIdx].rssi = [];
                         $("#BTLog").prepend(JSON.stringify(device) + "<br><br>");
                         var id = device.id;
-                        app.home.connectTo(id, bIdx);
+                       // app.home.connectTo(id, bIdx);
                         alert("beacon found");
-                        beacons[bIdx].samples = 0;
-                        beacons[bIdx].totalRSSI = 0;
+                        self.beacons[bIdx].samples = 0;
+                        self.beacons[bIdx].totalRSSI = 0;
                         ble.stopScan(function () {
                             isScanning = false;
 
@@ -103,13 +117,13 @@ var scanBLE = {
 
     },
     stopScan: function () {
-
+        var self = this;
         $("#BTLog").html("");
         ble.stopScan(function () {
-            isScanning = false;
+            self.isScanning = false;
 
         });
-        connected = false;
+        self.connected = false;
     }
 
 
