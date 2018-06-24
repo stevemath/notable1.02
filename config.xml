@@ -91,5 +91,7 @@
     <splash height="1920" src="res/screens/windows/SplashScreen.scale-240.png" width="1152" />
     <splash height="1920" src="res/screens/windows/SplashScreenPhone.scale-240.png" width="1152" />
   </platform>
-  <plugin name="cordova-plugin-bluetoothle" spec="~4.4.3" />
+  <plugin name="cordova-plugin-ble-central" spec="^1.2.2">
+    <variable name="BLUETOOTH_USAGE_DESCRIPTION" value=" " />
+  </plugin>
 </widget>
