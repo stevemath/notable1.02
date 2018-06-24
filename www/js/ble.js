@@ -8,6 +8,7 @@
         alert("enable ble")
         ble.enable(function () {
             alert("bluetooth enabled");
+            scanBLE.checkBLE();
         }, function () {
             alert("bluetooth NOT enabled");
         });
