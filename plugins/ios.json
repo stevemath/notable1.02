@@ -7,17 +7,12 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-ble-central": {
-            "BLUETOOTH_USAGE_DESCRIPTION": " ",
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.cordova.myapp4abc81"
         },
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-bluetoothle": {
             "PACKAGE_NAME": "io.cordova.myapp4abc81"
         }
     },
-    "dependent_plugins": {
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "io.cordova.myapp4abc81"
-        }
-    }
+    "dependent_plugins": {}
 }
