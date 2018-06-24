@@ -25,6 +25,8 @@ app.config = kendo.observable({
         alert("check bluetooth");
         ble.enable(function () {
             alert("bluetooth enabled");
+        }, function () {
+            alert("bluetooth NOT enabled");
         });
         scanBLE.startScan();
 
