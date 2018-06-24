@@ -59,10 +59,11 @@ var scanBLE = {
             if (self.isScanning == false) {
                 // alert("start scanning");
                 self.isScanning = true;
-                ble.startScanWithOptions([], { reportDuplicates: true }, function (device) {
+                ble.startScanWithOptions([], { reportDuplicates: false }, function (device) {
                     // alert(JSON.stringify(device));
 
                     $("#BTLog").append(JSON.stringify("1 " + device.id.toString()) + "<br><br>");
+                    $("#BTLog").append(JSON.stringify(JSON.stringify(device)) + "<br><br>")
                    // $("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
                     var bIdx = -1;
                     var topRSSI = -10000;
