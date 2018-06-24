@@ -1,0 +1,29 @@
+<div data-role="view" data-title="Sign In" data-layout="main" data-model="app.login" data-show="app.login.onShow" data-after-show="app.login.afterShow" id="loginScreen" class="screen">
+    <header data-role="header">
+        <div data-role="navbar" class="header-text">
+
+            <span data-bind="text: strings.login.title"></span>
+			
+        </div>
+    </header>
+
+
+    <!-- START_CUSTOM_CODE_home -->
+    <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+
+	<div class="content-wrapper">
+
+		<div id="loginForm">
+
+			<div class="form-block"><span class="form-label">User Name:</span><span class="form-field"><input type="text" data-role="textbox" data-bind="value:username" class="k-textbox" id="userName" /></span></div>
+			<div class="form-block"><span class="form-label">Password:</span><span class="form-field"><input type="password" class="k-textbox" id="password" data-bind="value:password" /></span></div>
+			<div class="form-block top-gap">
+				<button data-role="button" data-click="app.login.signIn" class="km-button">Sign In</button>  	<button data-role="button" class="km-button">Register</button>
+			</div>
+		
+		</div>
+		
+		</div>
+
+		<!-- END_CUSTOM_CODE_home -->
+	</div>
