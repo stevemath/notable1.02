@@ -10,7 +10,7 @@ app.config = kendo.observable({
 
         var self = this;
         
-        
+        scanBLE.init();
         
        
         $("#btnScanBT").on("click", function () {

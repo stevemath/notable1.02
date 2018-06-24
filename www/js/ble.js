@@ -55,12 +55,14 @@ var scanBLE = {
         alert(JSON.stringify(app.config.beacons));
     },
     startScan: function () {
+        var self = this;
+
         $("#BTLog").html("");
         ble.stopScan(function () {
             self.isScanning = false;
 
         });
-        var self = this;
+      
        // alert("Start Scanning?");
         connected = false;
        
@@ -77,6 +79,7 @@ var scanBLE = {
                    // $("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
                     var bIdx = -1;
                     var topRSSI = -10000;
+                    
                     $.map(self.beacons, function (elem, index) {
                         alert(elem.id + " " + device.id.toString())
                         if (elem.id == device.id.toString()) {
