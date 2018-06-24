@@ -37,7 +37,46 @@
 
     $(document).ready(function () {
 
-      
+        console.log(window.cordova)
+        if (window.cordova) {
+            alert("cordova detected")
+            //       document.addEventListener('deviceready', function () {
+
+            //           alert("cordova detected")
+            //           if (navigator && navigator.splashscreen) {
+            //               navigator.splashscreen.hide();
+            //           }
+
+
+
+            //               alert("check bluetooth");
+
+            //              // scanBLE.checkBLE();
+            //bootstrap();
+
+            //       }, false);
+
+
+            document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+
+            function onDeviceReady() {
+                alert("device ready")
+                if (navigator && navigator.splashscreen) {
+                    navigator.splashscreen.hide();
+                }
+
+
+
+                alert("check bluetooth");
+
+                // scanBLE.checkBLE();
+                bootstrap();
+            }
+
+        } else {
+            alert("no cordova detected")
+            bootstrap();
+        }
 
        // var navigationShowMoreView = $('#navigation-show-more-view').find('ul'),
         //    allItems = $('#navigation-container-more').find('a'),
@@ -85,24 +124,7 @@
         app.notification.fadeIn("slow").delay(autoHideAfter).fadeOut("slow");
     };
 
-    if (window.cordova) {
-        alert("cordova detected")
-        document.addEventListener('deviceready', function() {
-            if (navigator && navigator.splashscreen) {
-                navigator.splashscreen.hide();
-            }
-           
-
-           
-                alert("check bluetooth");
-
-               // scanBLE.checkBLE();
- bootstrap();
-           
-        }, false);
-    } else {
-        bootstrap();
-    }
+   
 
     app.keepActiveState = function _keepActiveState(item) {
         var currentItem = item;

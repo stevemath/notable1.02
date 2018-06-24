@@ -1,4 +1,16 @@
-﻿var scanBLE = {
+﻿//document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+
+//function onDeviceReady() {
+//    alert("device ready")
+//    window.cordova = true;
+//    if (window.cordova) {
+//        alert("cordova detected");
+//       // scanBLE.startScan();
+//    } else {
+//        alert("cordova NOT detected")
+//    }
+//}
+var scanBLE = {
     checkBLE: function () {
         //if (ble != undefined) {
         //    alert("ble");

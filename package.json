@@ -5,13 +5,20 @@
   "dependencies": {
     "cordova-android": "^5.2.1",
     "cordova-plugin-ble-central": "^1.2.2",
-    "cordova-plugin-compat": "^1.2.0"
+    "cordova-plugin-compat": "^1.2.0",
+    "cordova-ios": "4.2.0",
+    "cordova-windows": "4.4.2"
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-ble-central": {
         "BLUETOOTH_USAGE_DESCRIPTION": " "
       }
-    }
+    },
+    "platforms": [
+      "android",
+      "ios",
+      "windows"
+    ]
   }
 }
