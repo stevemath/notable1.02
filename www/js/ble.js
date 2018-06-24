@@ -47,6 +47,9 @@ var scanBLE = {
         var beacon = { id: "C6:50:BC:AE:B2:B6", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
+        var beacon = { id: "C0:0A:9C:AD:EC:05", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        self.beacons.push(beacon);
+
         beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
         alert(JSON.stringify(app.config.beacons));
@@ -75,7 +78,9 @@ var scanBLE = {
                     var bIdx = -1;
                     var topRSSI = -10000;
                     $.map(self.beacons, function (elem, index) {
+                        alert(elem.id + " " + device.id.toString())
                         if (elem.id == device.id.toString()) {
+                            
                             alert("beacon match")
                             if (elem.avgRSSI > topRSSI) {
                                 bIdx = index;
