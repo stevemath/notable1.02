@@ -38,20 +38,23 @@ var scanBLE = {
     init: function () {
         var self = this;
 
-        var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
-        self.beacons.push(beacon);
+        //var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        //self.beacons.push(beacon);
 
-        var beacon = { id: "39:BB:26:BB:7B:02", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
-        self.beacons.push(beacon);
+        //var beacon = { id: "39:BB:26:BB:7B:02", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        //self.beacons.push(beacon);
 
-        var beacon = { id: "C6:50:BC:AE:B2:B6", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
-        self.beacons.push(beacon);
+        //var beacon = { id: "C6:50:BC:AE:B2:B6", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        //self.beacons.push(beacon);
 
         var beacon = { id: "C0:0A:9C:AD:EC:05", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
-        beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        var beacon = { id: "F7:53:A3:80:C9:BE", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
+
+        //beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        //self.beacons.push(beacon);
         alert(JSON.stringify(app.config.beacons));
     },
     startScan: function () {
@@ -81,13 +84,20 @@ var scanBLE = {
                     var topRSSI = -10000;
                     
                     $.map(self.beacons, function (elem, index) {
-                        alert(elem.id + " " + device.id.toString())
+                       // alert(elem.id + " " + device.id.toString())
                         if (elem.id == device.id.toString()) {
                             
-                            alert("beacon match")
+                           // alert("beacon match: " + elem.id)
                             if (elem.avgRSSI > topRSSI) {
                                 bIdx = index;
                                 topRSSI = elem.avgRssi;
+
+                                ble.connect(elem.id, function(data){ 
+         $("#BTLog").append("Services: <br/>" + JSON.stringify(data) + "<br><br>");
+        }, function(data){
+            alert("Failed to connect");
+            $("#BTLog").append("FAILURE: " + JSON.stringify(data) + "<br><br><br><br>");
+          });
                             }
                             return true;
                         }
