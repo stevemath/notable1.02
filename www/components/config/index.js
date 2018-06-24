@@ -13,7 +13,7 @@ app.config = kendo.observable({
 
         var self = this;
         
-        var scanBLE;
+        
         
        
         var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
@@ -23,11 +23,7 @@ app.config = kendo.observable({
         app.config.beacons.push(beacon);
         alert(JSON.stringify(app.config.beacons));
         alert("check bluetooth");
-        ble.enable(function () {
-            alert("bluetooth enabled");
-        }, function () {
-            alert("bluetooth NOT enabled");
-        });
+       
         scanBLE.startScan();
 
     },

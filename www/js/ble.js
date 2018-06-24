@@ -2,6 +2,12 @@
 
     startScan: function () {
         $("#BTLog").html("");
+        alert(ble);
+        ble.enable(function () {
+            alert("bluetooth enabled");
+        }, function () {
+            alert("bluetooth NOT enabled");
+        });
         alert("Start Scanning?");
         connected = false;
 
