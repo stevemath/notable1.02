@@ -44,14 +44,21 @@ var scanBLE = {
         var beacon = { id: "39:BB:26:BB:7B:02", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
+        var beacon = { id: "C6:50:BC:AE:B2:B6", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        self.beacons.push(beacon);
+
         beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
         alert(JSON.stringify(app.config.beacons));
     },
     startScan: function () {
         $("#BTLog").html("");
+        ble.stopScan(function () {
+            self.isScanning = false;
+
+        });
         var self = this;
-        alert("Start Scanning?");
+       // alert("Start Scanning?");
         connected = false;
        
         setInterval(function () {
