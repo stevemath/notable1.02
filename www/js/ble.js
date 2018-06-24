@@ -10,6 +10,16 @@
 //        alert("cordova NOT detected")
 //    }
 //}
+
+// 10:bb:40:75:56:ea
+// 88:c6:26:2e:2f:85
+// 3b:6d:1a:ae:fa:31
+
+
+// ibks
+// 39:bb:26:bb:7b:02 2
+// c6:50:bc:ae:b2:b6 
+
 var scanBLE = {
     connected: false,
     isScanning: false,
@@ -31,6 +41,9 @@ var scanBLE = {
         var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
+        var beacon = { id: "39:BB:26:BB:7B:02", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        self.beacons.push(beacon);
+
         beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
         alert(JSON.stringify(app.config.beacons));
@@ -50,7 +63,7 @@ var scanBLE = {
                     // alert(JSON.stringify(device));
 
                     $("#BTLog").append(JSON.stringify("1 " + device.id.toString()) + "<br><br>");
-                    $("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
+                   // $("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
                     var bIdx = -1;
                     var topRSSI = -10000;
                     $.map(self.beacons, function (elem, index) {
@@ -101,7 +114,7 @@ var scanBLE = {
                         self.beacons[bIdx].samples = 0;
                         self.beacons[bIdx].totalRSSI = 0;
                         ble.stopScan(function () {
-                            isScanning = false;
+                            self.isScanning = false;
 
                         });
                         connected = true;
