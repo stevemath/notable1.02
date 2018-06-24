@@ -35,12 +35,13 @@ var scanBLE = {
                 ble.startScanWithOptions([], { reportDuplicates: true }, function (device) {
                     // alert(JSON.stringify(device));
 
-                    //$("#BTLog").append(JSON.stringify("1 " + device.id.toString()) + "<br><br>");
-                    //$("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
+                    $("#BTLog").append(JSON.stringify("1 " + device.id.toString()) + "<br><br>");
+                    $("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
                     var bIdx = -1;
                     var topRSSI = -10000;
                     $.map(beacons, function (elem, index) {
                         if (elem.id == device.id.toString()) {
+                            alert("beacon match")
                             if (elem.avgRSSI > topRSSI) {
                                 bIdx = index;
                                 topRSSI = elem.avgRssi;
