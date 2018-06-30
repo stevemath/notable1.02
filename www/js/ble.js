@@ -37,20 +37,21 @@ var scanBLE = {
     },
     init: function () {
         var self = this;
-
-        //var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
-        //self.beacons.push(beacon);
-
-        //var beacon = { id: "39:BB:26:BB:7B:02", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
-        //self.beacons.push(beacon);
-
-        //var beacon = { id: "C6:50:BC:AE:B2:B6", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
-        //self.beacons.push(beacon);
-
-        var beacon = { id: "C0:0A:9C:AD:EC:05", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        var d = calcDistance(-70, -64)
+        alert(d)
+        var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, tx:-58, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
-        var beacon = { id: "F7:53:A3:80:C9:BE", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
+        var beacon = { id: "39:BB:26:BB:7B:02", avgRSSI: -1000, tx: -58,totalRSSI: 0, rssi: [], samples: 0 };
+        self.beacons.push(beacon);
+
+        var beacon = { id: "C6:50:BC:AE:B2:B6", avgRSSI: -1000, tx: -58,totalRSSI: 0, rssi: [], samples: 0 };
+        self.beacons.push(beacon);
+
+        var beacon = { id: "C0:0A:9C:AD:EC:05", avgRSSI: -1000, tx: -70,totalRSSI: 0, rssi: [], samples: 0 };
+        self.beacons.push(beacon);
+
+        var beacon = { id: "F7:53:A3:80:C9:BE", avgRSSI: -1000, tx: -58,totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
         //beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
@@ -77,8 +78,8 @@ var scanBLE = {
                 ble.startScanWithOptions([], { reportDuplicates: false }, function (device) {
                     // alert(JSON.stringify(device));
 
-                    $("#BTLog").append(JSON.stringify("1 " + device.id.toString()) + "<br><br>");
-                    $("#BTLog").append(JSON.stringify(JSON.stringify(device)) + "<br><br>")
+                  //  $("#BTLog").append(JSON.stringify("1 " + device.id.toString()) + "<br><br>");
+                   // $("#BTLog").append(JSON.stringify(JSON.stringify(device)) + "<br><br>")
                    // $("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
                     var bIdx = -1;
                     var topRSSI = -10000;
@@ -91,17 +92,18 @@ var scanBLE = {
                             if (elem.avgRSSI > topRSSI) {
                                 bIdx = index;
                                 topRSSI = elem.avgRssi;
-
-                                ble.connect(elem.id, function(data){ 
-         $("#BTLog").append("Services: <br/>" + JSON.stringify(data) + "<br><br>");
-        }, function(data){
-            alert("Failed to connect");
-            $("#BTLog").append("FAILURE: " + JSON.stringify(data) + "<br><br><br><br>");
-          });
                             }
-                            return true;
-                        }
-                    });
+        //                        ble.connect(elem.id, function(data){ 
+        //                            $("#BTLog").append("Services: <br/>" + JSON.stringify(data) + "<br><br>");
+
+        //                           // $("#BTLog").append("Services: <br/>" + JSON.stringify(data) + "<br><br>");
+        //}, function(data){
+        //    alert("Failed to connect");
+        //    $("#BTLog").append("FAILURE: " + JSON.stringify(data) + "<br><br><br><br>");
+        //  });
+        //                    }
+        //                    return true;
+                     
 
                     //device.id.toString() == beacons[0].id.toString()  
 
@@ -124,7 +126,9 @@ var scanBLE = {
                         self.beacons[bIdx].avgRSSI = self.beacons[bIdx].totalRSSI / self.beacons[bIdx].rssi.length;
                         $("#BTLog").prepend(sum + " ... " + self.beacons[bIdx].avgRSSI + "<br><br>");
 
-                        var d = calcDistance(4, self.beacons[bIdx].avgRSSI);
+                        var avgRssi = self.beacons[bIdx].avgRSSI
+                        var tx = self.beacons[bIdx].tx;
+                        var d = calcDistance(tx, avgRssi);
                         //alert(d);
                         $("#BTLog").prepend("***" + d + " m " + " " + device.rssi + "<br><br>");
                     } else {
@@ -145,7 +149,8 @@ var scanBLE = {
                         });
                         connected = true;
                     }
-
+  }
+                    });
 
                 }, function (e) {
                     alert(JSON.stringify(e));
@@ -191,7 +196,7 @@ var scanBLE = {
 }
 
 function calcDistance(txPower, rssi) {
-    txPower = txPower - 58;
+   // txPower = txPower - 58;
     if (rssi == 0) {
         return -1.0; // if we cannot determine distance, return -1.
     }
@@ -225,4 +230,40 @@ function stringToBytes(string) {
 // ASCII only
 function bytesToString(buffer) {
     return String.fromCharCode.apply(null, new Uint8Array(buffer));
+}
+
+function asHexString(i) {
+    var hex;
+
+    hex = i.toString(16);
+
+    // zero padding
+    if (hex.length === 1) {
+        hex = "0" + hex;
+    }
+
+    return "0x" + hex;
+}
+
+function parseAdvertisingData(buffer) {
+    var length, type, data, i = 0, advertisementData = {};
+    var bytes = new Uint8Array(buffer);
+
+    while (length !== 0) {
+
+        length = bytes[i] & 0xFF;
+        i++;
+
+        // decode type constants from https://www.bluetooth.org/en-us/specification/assigned-numbers/generic-access-profile
+        type = bytes[i] & 0xFF;
+        i++;
+
+        data = bytes.slice(i, i + length - 1).buffer; // length includes type byte, but not length byte
+        i += length - 2;  // move to end of data
+        i++;
+
+        advertisementData[asHexString(type)] = data;
+    }
+
+    return advertisementData;
 }
