@@ -108,9 +108,9 @@ var scanBLE = {
                     //device.id.toString() == beacons[0].id.toString()  
                                
                                 if (bIdx >= 0) {
-                                    $("#BTLog").append(bIdx + "  " + device.id.toString() + ": <br>");
-                                    $("#BTLog").append(beacons[bIdx].avgRSSI + "<br><br>");
-                                    $("#BTLog").append(beacons[bIdx].rssi + "<br><br>");
+                                    $("#BTLog").append(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + " ::: " +  self.beacons[bIdx].rssi + "<br><br>");
+                                 //   $("#BTLog").append(beacons[bIdx].avgRSSI + "<br><br>");
+                                   //$("#BTLog").append(beacons[bIdx].rssi + "<br><br>");
                         // alert("match found");
                         // $("#BTLog").prepend( beacons[0].avgRSSI + "<br><br>");
                         // $("#BTLog").prepend( beacons[0].samples + "<br><br>");
@@ -121,7 +121,7 @@ var scanBLE = {
                         if (self.beacons[bIdx].rssi.length > self.maxSampling) {
                             self.beacons[bIdx].rssi.shift();
                         }
-                        $("#BTLog").prepend(beacons[bIdx].rssi.join(",") + "<br><br>");
+                        $("#BTLog").prepend(self.beacons[bIdx].rssi.join(",") + "<br><br>");
 
                         var sum = self.beacons[bIdx].rssi.reduce((a, b) => a + b, 0);
                         self.beacons[bIdx].totalRSSI = sum;
