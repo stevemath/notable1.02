@@ -107,8 +107,8 @@ var scanBLE = {
                      
 
                     //device.id.toString() == beacons[0].id.toString()  
-                               
-                                if (bIdx >= 0 && self.beacons[bIdx].rssi.length <= maxSampling) {
+                                $("#BTLog").append(self.beacons[bIdx].rssi.length && +  "...")
+                                if (bIdx >= 0 && self.beacons[bIdx].rssi.length <= self.maxSampling) {
                                    
                                  //   $("#BTLog").append(beacons[bIdx].avgRSSI + "<br><br>");
                                    //$("#BTLog").append(beacons[bIdx].rssi + "<br><br>");
@@ -122,6 +122,7 @@ var scanBLE = {
                         if (self.beacons[bIdx].rssi.length > self.maxSampling) {
                             self.beacons[bIdx].rssi.shift();
                         }
+
                         $("#BTLog").prepend(self.beacons[bIdx].rssi.join(",") + "<br><br>");
 
                         var sum = self.beacons[bIdx].rssi.reduce((a, b) => a + b, 0);
@@ -133,7 +134,7 @@ var scanBLE = {
                         var avgRssi = self.beacons[bIdx].avgRSSI
                         var tx = self.beacons[bIdx].tx;
                         var d = calcDistance(tx, avgRssi);
-                        if (self.beacons[bIdx].rssi.length >= maxSampling) {
+                        if (self.beacons[bIdx].rssi.length >= self.maxSampling) {
                             samplingComplete = true;
                             $("#BTLog").append(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + " ::: " + self.beacons[bIdx].rssi + "<br><br>");
                             $("#BTLog").prepend(device.id.toString() + ": " + d + " m " + " " + avgRssi + "<br><br>");
@@ -160,7 +161,7 @@ var scanBLE = {
 
 
                             // reset device once it is too far away?
-                    if (device.id == self.beacons[bIdx].id && self.beacons[bIdx].avgRSSI > -55 && self.beacons[bIdx].samples >= maxSampling) {
+                    if (device.id == self.beacons[bIdx].id && self.beacons[bIdx].avgRSSI > -55 && self.beacons[bIdx].samples >= self.maxSampling) {
                         self.beacons[bIdx].rssi = [];
                         $("#BTLog").prepend(JSON.stringify(device) + "<br><br>");
                         var id = device.id;
