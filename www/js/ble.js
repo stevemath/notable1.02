@@ -38,7 +38,7 @@ var scanBLE = {
     init: function () {
         var self = this;
        // var d = calcDistance(-70, -64)
-        alert(d)
+       // alert(d)
         var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, tx:-58, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 

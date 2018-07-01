@@ -5,7 +5,7 @@ app.config = kendo.observable({
     onShow: function () {
         console.log("home");
        // console.log(app['home']);
-        console.log(this);
+       // console.log(this);
         kendo.bind(this.element[0], app['config'].strings['config'])
 
         var self = this;
