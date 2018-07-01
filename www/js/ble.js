@@ -106,8 +106,9 @@ var scanBLE = {
                      
 
                     //device.id.toString() == beacons[0].id.toString()  
-
-                    if (bIdx >= 0) {
+                                $("#BTLog").append(device.id.toString() + ": <br>");
+                                if (bIdx >= 0) {
+                                    $("#BTLog").append(beacons[bIdx].avgRSSI + "<br><br>");
                         // alert("match found");
                         // $("#BTLog").prepend( beacons[0].avgRSSI + "<br><br>");
                         // $("#BTLog").prepend( beacons[0].samples + "<br><br>");
