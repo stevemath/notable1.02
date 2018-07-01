@@ -23,7 +23,7 @@
 var scanBLE = {
     connected: false,
     isScanning: false,
-    maxSampling: 10,
+    maxSampling: 50,
     beacons: [],
     checkBLE: function () {
        
@@ -37,7 +37,7 @@ var scanBLE = {
     },
     init: function () {
         var self = this;
-        var d = calcDistance(-70, -64)
+       // var d = calcDistance(-70, -64)
         alert(d)
         var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, tx:-58, totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
@@ -75,7 +75,7 @@ var scanBLE = {
             if (self.isScanning == false) {
                 // alert("start scanning");
                 self.isScanning = true;
-                ble.startScanWithOptions([], { reportDuplicates: false }, function (device) {
+                ble.startScanWithOptions([], { reportDuplicates: true }, function (device) {
                     // alert(JSON.stringify(device));
 
                   //  $("#BTLog").append(JSON.stringify("1 " + device.id.toString()) + "<br><br>");
@@ -118,29 +118,31 @@ var scanBLE = {
                         if (self.beacons[bIdx].rssi.length > self.maxSampling) {
                             self.beacons[bIdx].rssi.shift();
                         }
-                        //$("#BTLog").prepend(beacons[bIdx].rssi.join(",") + "<br><br>");
+                        $("#BTLog").prepend(beacons[bIdx].rssi.join(",") + "<br><br>");
 
                         var sum = self.beacons[bIdx].rssi.reduce((a, b) => a + b, 0);
                         self.beacons[bIdx].totalRSSI = sum;
 
                         self.beacons[bIdx].avgRSSI = self.beacons[bIdx].totalRSSI / self.beacons[bIdx].rssi.length;
-                        $("#BTLog").prepend(sum + " ... " + self.beacons[bIdx].avgRSSI + "<br><br>");
+                       // $("#BTLog").prepend(sum + " ... " + self.beacons[bIdx].avgRSSI + "<br><br>");
 
                         var avgRssi = self.beacons[bIdx].avgRSSI
                         var tx = self.beacons[bIdx].tx;
                         var d = calcDistance(tx, avgRssi);
                         //alert(d);
-                        $("#BTLog").prepend("***" + d + " m " + " " + device.rssi + "<br><br>");
+                        $("#BTLog").prepend(device.id.toString() + ": " + d + " m " + " " + avgRssi + "<br><br>");
                     } else {
                         // $("#BTLog").prepend( d + " m <br><br>");
                     }
 
+
+                            // reset device once it is too far away?
                     if (device.id == self.beacons[bIdx].id && self.beacons[bIdx].avgRSSI > -55 && self.beacons[bIdx].samples >= maxSampling) {
                         self.beacons[bIdx].rssi = [];
                         $("#BTLog").prepend(JSON.stringify(device) + "<br><br>");
                         var id = device.id;
-                       self.connectTo(id, bIdx);
-                        alert("beacon found");
+                      // self.connectTo(id, bIdx);
+                        alert("beacon calibrated");
                         self.beacons[bIdx].samples = 0;
                         self.beacons[bIdx].totalRSSI = 0;
                         ble.stopScan(function () {
@@ -157,9 +159,10 @@ var scanBLE = {
                 });
 
             }
-        }, 20000);
+        }, 500);
 
     },
+    calibrate: function (id) { },
     stopScan: function () {
         var self = this;
         $("#BTLog").html("");
