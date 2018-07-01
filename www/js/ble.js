@@ -56,7 +56,7 @@ var scanBLE = {
 
         //beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         //self.beacons.push(beacon);
-        alert(JSON.stringify(app.config.beacons));
+       // alert(JSON.stringify(app.config.beacons));
     },
     startScan: function () {
         var self = this;
@@ -78,7 +78,7 @@ var scanBLE = {
                 ble.startScanWithOptions([], { reportDuplicates: true }, function (device) {
                     // alert(JSON.stringify(device));
 
-                    $("#BTLog").append(JSON.stringify("1 " + device.id.toString()) + "<br><br>");
+                  //  $("#BTLog").append(JSON.stringify("1 " + device.id.toString()) + "<br><br>");
                    // $("#BTLog").append(JSON.stringify(JSON.stringify(device)) + "<br><br>")
                    // $("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
                     var bIdx = -1;
@@ -88,7 +88,7 @@ var scanBLE = {
                        // alert(elem.id + " " + device.id.toString())
                         if (elem.id == device.id.toString()) {
                             
-                            alert("beacon match: " + elem.id)
+                          //  alert("beacon match: " + elem.id)
                             if (elem.avgRSSI > topRSSI) {
                                 bIdx = index;
                                 topRSSI = elem.avgRssi;
