@@ -89,10 +89,10 @@ var scanBLE = {
                         if (elem.id == device.id.toString()) {
                             
                           //  alert("beacon match: " + elem.id)
-                            if (elem.avgRSSI > topRSSI) {
+                           // if (elem.avgRSSI > topRSSI) {
                                 bIdx = index;
                                 topRSSI = elem.avgRssi;
-                            }
+                           // }
         //                        ble.connect(elem.id, function(data){ 
         //                            $("#BTLog").append("Services: <br/>" + JSON.stringify(data) + "<br><br>");
 
