@@ -66,19 +66,19 @@ var scanBLE = {
             self.isScanning = false;
 
         });
-      
-       // alert("Start Scanning?");
-        connected = false;
-       
-        setInterval(function () {
-            var samplingComplete = false;
-            $.map(self.beacons, function (elem, index) {
+        $.map(self.beacons, function (elem, index) {
 
                 elem.samples = 0;
                 elem.totaalRSSI = 0;
                 elem.filtered.Rssi = 0;
                 eem.rssi = [];
             });
+       // alert("Start Scanning?");
+        connected = false;
+       
+        setInterval(function () {
+            var samplingComplete = false;
+          
 
             if (self.isScanning == false) {
                  alert("start scanning");
@@ -87,7 +87,7 @@ var scanBLE = {
                     // alert(JSON.stringify(device));
 
                   //  $("#BTLog").append(JSON.stringify("1 " + device.id.toString()) + "<br><br>");
-                   // $("#BTLog").append(JSON.stringify(JSON.stringify(device)) + "<br><br>")
+                    $("#BTLog").append(JSON.stringify(JSON.stringify(device)) + " , ")
                    // $("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
                     var bIdx = -1;
                     var topRSSI = -10000;
