@@ -138,7 +138,7 @@ var scanBLE = {
                        // alert(self.beacons[bIdx].rssi);
                         if (self.beacons[bIdx].samples == self.maxSampling) {
                             samplingComplete = true;
-                            alert(self.beacons[bIdx].rssi);
+                           // alert(self.beacons[bIdx].rssi);
                            // alert(filterArray(self.beacons[bIdx].rssi,5))
                             var fr = filterArray(self.beacons[bIdx].rssi,5);
                             self.beacons[bIdx].filteredRssi = fr;
