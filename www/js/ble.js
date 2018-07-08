@@ -51,7 +51,7 @@ var scanBLE = {
         var beacon = { id: "C0:0A:9C:AD:EC:05", avgRSSI: -1000, tx: -70,totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
-        var beacon = { id: "F7:53:A3:80:C9:BE", avgRSSI: -1000, tx: -58,totalRSSI: 0, rssi: [], samples: 0 };
+        var beacon = { id: "F7:53:A3:80:C9:BE", avgRSSI: -1000, tx: -58,filteredRssi:0,totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
         //beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
@@ -71,6 +71,7 @@ var scanBLE = {
         connected = false;
        
         setInterval(function () {
+ var samplingComplete = false;
 
             if (self.isScanning == false) {
                 // alert("start scanning");
@@ -83,8 +84,8 @@ var scanBLE = {
                    // $("#BTLog").append(JSON.stringify("2 " + beacons[0].id.toString()) + "<br><br>");
                     var bIdx = -1;
                     var topRSSI = -10000;
-                    var samplingComplete = false;
-
+                   
+                   
                     $.map(self.beacons, function (elem, index) {
                        // alert(elem.id + " " + device.id.toString())
                         if (elem.id == device.id.toString()) {
@@ -107,8 +108,8 @@ var scanBLE = {
                      
 
                     //device.id.toString() == beacons[0].id.toString()  
-                                $("#BTLog").append(self.beacons[bIdx].rssi.length && +  "...")
-                                if (bIdx >= 0 && self.beacons[bIdx].rssi.length <= self.maxSampling) {
+                               // $("#BTLog").append(self.beacons[bIdx].rssi.length && +  "...")
+                                if (bIdx >= 0 && self.beacons[bIdx].samples <= self.maxSampling) {
                                    
                                  //   $("#BTLog").append(beacons[bIdx].avgRSSI + "<br><br>");
                                    //$("#BTLog").append(beacons[bIdx].rssi + "<br><br>");
@@ -134,9 +135,12 @@ var scanBLE = {
                         var avgRssi = self.beacons[bIdx].avgRSSI
                         var tx = self.beacons[bIdx].tx;
                         var d = calcDistance(tx, avgRssi);
-                        if (self.beacons[bIdx].rssi.length >= self.maxSampling) {
+                        if (self.beacons[bIdx].samples == self.maxSampling) {
                             samplingComplete = true;
-                            $("#BTLog").append(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + " ::: " + self.beacons[bIdx].rssi + "<br><br>");
+
+                            var fr = filterArray(self.beacons[bIdx].rssi);
+                            self.beacons[bIdx].filteredRssi = fr;
+                            $("#BTLog").append(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + "::: " + fr + " ::: " + self.beacons[bIdx].rssi + "<br><br>");
                             $("#BTLog").prepend(device.id.toString() + ": " + d + " m " + " " + avgRssi + "<br><br>");
                         } else {
 

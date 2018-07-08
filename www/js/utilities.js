@@ -37,3 +37,97 @@ var events = (function () {
         }
     };
 })();
+
+
+var filterArray = function (valArr, obs) {
+
+   // var arr = [2, 2, 10, 12, 50, 10, 2, 100, 2, 2, 2, 2, 10, 2, 4, 500, 2, 2, 2, 2, 2, 2, 10, 12, 2, 10, 2, 0, 2, -12, 2, 2, 10, -52, 4, 10, 2, -20, 2, 2]
+
+    //var arrVals = [4, 4, 10, 14, 4, 10, 4, 0, 4, 4,-10, 4, 4, 10, 4, 4, 10, 4, 4, -14, 4, 4, 4, 10, 14, 4, 10, 4, 0, 4, 4, 4, 4, 10, 4, 4, 10, 4, 4, 4, 4]
+
+    
+
+  
+    var options = {
+        offset: 0,
+        stateTransition: 1,
+        observation: obs,
+        initialCovariance: 40.0,
+        processError: 0.01,
+        measurementError: 0.0001,
+        iterations: valArr.length,
+        observationCutoff: 1000
+    };
+
+
+    var arrVals = valArr;
+
+    var stateTransitionMatrix = $M([[options.stateTransition]]),      // A
+        controlMatrix = $M([[0]]),                            // B
+        observationMatrix = $M([[options.observation]]),          // H
+        initialStateEstimate = $M([[options.initialState]]),         // X
+        initialCovarianceEstimate = $M([[options.initialCovariance]]),    // P
+        processErrorEstimate = $M([[options.processError]]),         // Q
+        measurementErrorEstimate = $M([[options.measurementError]]),     // R
+        controlVector = $M([[0]]),                            // C
+        measurementVector,
+        filter = new LinearKalmanFilter(
+            stateTransitionMatrix,
+            controlMatrix,
+            observationMatrix,
+            initialStateEstimate,
+            initialCovarianceEstimate,
+            processErrorEstimate,
+            measurementErrorEstimate
+        ),
+
+        measuredValues = [],
+        filteredValues = [],
+        predictedStateValues = [],
+        predictionProbabilityValues = [],
+        covarianceValues = [],
+        gainValues = [],
+        innovationValues = [],
+        measuredValue,
+        filteredValue,
+        predictedState,
+        predictedProbability,
+        covariance,
+
+        i;
+
+    for (i = 0; i < options.iterations; i++) {
+        measuredValue = arrVals[i];
+        console.log(options.iterations)
+        measurementVector = $M([[measuredValue]]);
+
+        filter.predict(controlVector);
+        filter.observe(i < options.observationCutoff ? measurementVector : null);
+        filter.update();
+
+        filteredValue = filter.getStateEstimate().e(1, 1);
+
+        predictedState = filter.predictedStateEstimate.e(1, 1);
+        predictedProbability = filter.predictedProbabilityEstimate.e(1, 1);
+        covariance = filter.covarianceEstimate.e(1, 1);
+        measuredValues.push(measuredValue);
+        filteredValues.push(filteredValue);
+
+        predictedStateValues.push(predictedState);
+        predictionProbabilityValues.push(predictedProbability);
+
+
+       
+
+    }
+
+        window.filter = filter;
+        console.log(filteredValues);
+        arrfvals = filteredValues.splice(0, 5)
+        var arravg = arr => arr.reduce((a, b) => a + b, 0) / arr.length;
+
+        console.log(arravg(filteredValues));
+        console.log(arravg(arrfvals))
+
+    return (arravg(arrfvals))
+}

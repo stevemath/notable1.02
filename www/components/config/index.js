@@ -4,7 +4,7 @@ app.config = kendo.observable({
  
     onShow: function () {
         console.log("home");
-       // console.log(app['home']);
+      // console.log(app['home']);
        // console.log(this);
         kendo.bind(this.element[0], app['config'].strings['config'])
 
@@ -26,7 +26,8 @@ app.config = kendo.observable({
             });
             scanBLE.connected = false;
         });
-       
+
+      
 
     },
     afterShow: function() {}
