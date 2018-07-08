@@ -57,6 +57,9 @@ var scanBLE = {
         var beacon = { id: "F7:53:A3:80:C9:BE", avgRSSI: -1000, tx: -70,filteredRssi:0,totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
+        var beacon = { id: "F7:E7:33:80:84:C4", avgRSSI: -1000, tx: -70, filteredRssi: 0, totalRSSI: 0, rssi: [], samples: 0 };
+        self.beacons.push(beacon);
+
         //beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
         //self.beacons.push(beacon);
        // alert(JSON.stringify(app.config.beacons));
@@ -76,13 +79,13 @@ var scanBLE = {
                 elem.filteredRssi = 0;
                 elem.rssi = [];
             });
-       // alert("Start Scanning?");
+        $("#BTLog").append("reset complete -Start Scanning?");
         connected = false;
         var samplingComplete = false;
           
         setInterval(function () {
            
-
+            $("#BTLog").append("isScanning: " + self.isScanning);
             if (self.isScanning == false) {
                 // alert("start scanning");
                 self.isScanning = true;
@@ -100,7 +103,7 @@ var scanBLE = {
                        // alert(elem.id + " " + device.id.toString())
                         if (elem.id == device.id.toString()) {
                             
-                          //  alert("beacon match: " + elem.id)
+                            $("#BTLog").append("beacon match: " + elem.id)
                            // if (elem.avgRSSI > topRSSI) {
                                 bIdx = index;
                                 topRSSI = elem.avgRssi;
