@@ -39,16 +39,16 @@ var scanBLE = {
         var self = this;
        // var d = calcDistance(-70, -64)
        // alert(d)
-        var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, tx:-58, totalRSSI: 0, rssi: [], samples: 0 };
+        var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, tx: -58, totalRSSI: 0, filteredRssi: 0,rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
-        var beacon = { id: "39:BB:26:BB:7B:02", avgRSSI: -1000, tx: -58,totalRSSI: 0, rssi: [], samples: 0 };
+        var beacon = { id: "39:BB:26:BB:7B:02", avgRSSI: -1000, tx: -58, totalRSSI: 0, filteredRssi: 0,rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
-        var beacon = { id: "C6:50:BC:AE:B2:B6", avgRSSI: -1000, tx: -58,totalRSSI: 0, rssi: [], samples: 0 };
+        var beacon = { id: "C6:50:BC:AE:B2:B6", avgRSSI: -1000, tx: -58, totalRSSI: 0, filteredRssi: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
-        var beacon = { id: "C0:0A:9C:AD:EC:05", avgRSSI: -1000, tx: -70,totalRSSI: 0, rssi: [], samples: 0 };
+        var beacon = { id: "C0:0A:9C:AD:EC:05", avgRSSI: -1000, tx: -70, filteredRssi: 0,totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
         var beacon = { id: "F7:53:A3:80:C9:BE", avgRSSI: -1000, tx: -58,filteredRssi:0,totalRSSI: 0, rssi: [], samples: 0 };
@@ -71,10 +71,17 @@ var scanBLE = {
         connected = false;
        
         setInterval(function () {
- var samplingComplete = false;
+            var samplingComplete = false;
+            $.map(self.beacons, function (elem, index) {
+
+                elem.samples = 0;
+                elem.totaalRSSI = 0;
+                elem.filtered.Rssi = 0;
+                eem.rssi = [];
+            });
 
             if (self.isScanning == false) {
-                // alert("start scanning");
+                 alert("start scanning");
                 self.isScanning = true;
                 ble.startScanWithOptions([], { reportDuplicates: true }, function (device) {
                     // alert(JSON.stringify(device));
@@ -124,7 +131,7 @@ var scanBLE = {
                             self.beacons[bIdx].rssi.shift();
                         }
 
-                        $("#BTLog").prepend(self.beacons[bIdx].rssi.join(",") + "<br><br>");
+                       // $("#BTLog").prepend(self.beacons[bIdx].rssi.join(",") + "<br><br>");
 
                         var sum = self.beacons[bIdx].rssi.reduce((a, b) => a + b, 0);
                         self.beacons[bIdx].totalRSSI = sum;
@@ -138,28 +145,28 @@ var scanBLE = {
                        // alert(self.beacons[bIdx].rssi);
                         if (self.beacons[bIdx].samples == self.maxSampling) {
                             samplingComplete = true;
-                           // alert(self.beacons[bIdx].rssi);
-                           // alert(filterArray(self.beacons[bIdx].rssi,5))
+                          
+                          
                             var fr = filterArray(self.beacons[bIdx].rssi,1.4);
                             self.beacons[bIdx].filteredRssi = fr;
-                            $("#BTLog").append(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + "::: " + fr + " ::: " + self.beacons[bIdx].rssi + "<br><br>");
+                            $("#BTLog").append(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + "::: " + fr + " ::: xx" + self.beacons[bIdx].rssi + "xx<br><br>");
                             $("#BTLog").prepend(device.id.toString() + ": " + d + " m " + " " + avgRssi + "<br><br>");
                         } else {
 
                             samplingComplete = false;
                         }
 
-                        if (bIdx == beacons.length - 1 && samplingComplete == true) {
+                        //if (bIdx == beacons.length - 1 && samplingComplete == true) {
 
-                            alert("beacons calibrated");
-                           // self.beacons[bIdx].samples = 0;
-                            // self.beacons[bIdx].totalRSSI = 0;
-                            ble.stopScan(function () {
-                                self.isScanning = false;
+                        //    alert("beacons calibrated");
+                        //   // self.beacons[bIdx].samples = 0;
+                        //    // self.beacons[bIdx].totalRSSI = 0;
+                        //    ble.stopScan(function () {
+                        //        self.isScanning = false;
 
-                            });
+                        //    });
                         
-                        }
+                        //}
 
                     } else {
                         // $("#BTLog").prepend( d + " m <br><br>");
@@ -189,7 +196,7 @@ var scanBLE = {
                 });
 
             }
-        }, 250000);
+        }, 5000);
 
     },
     calibrate: function (id) { },
