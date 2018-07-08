@@ -61,13 +61,13 @@ var scanBLE = {
     startScan: function () {
         var self = this;
 
-        $("#BTLog").html("");
-        ble.stopScan(function () {
-            self.isScanning = false;
+        //$("#BTLog").html("");
+        //ble.stopScan(function () {
+        //    self.isScanning = false;
 
-        });
+        //});
         $.map(self.beacons, function (elem, index) {
-
+            self.isScanning = false;
                 elem.samples = 0;
                 elem.totalRSSI = 0;
                 elem.filteredRssi = 0;
@@ -75,13 +75,13 @@ var scanBLE = {
             });
        // alert("Start Scanning?");
         connected = false;
-       
-        setInterval(function () {
-            var samplingComplete = false;
+        var samplingComplete = false;
           
+        setInterval(function () {
+           
 
             if (self.isScanning == false) {
-                 alert("start scanning");
+                // alert("start scanning");
                 self.isScanning = true;
                 ble.startScanWithOptions([], { reportDuplicates: true }, function (device) {
                     // alert(JSON.stringify(device));
@@ -147,9 +147,11 @@ var scanBLE = {
                             samplingComplete = true;
                           
                           
-                            var fr = filterArray(self.beacons[bIdx].rssi,1.4);
+                            var fr = filterArray(self.beacons[bIdx].rssi, 1.4);
+
+                            var d2 = calcDistance(tx, fr);
                             self.beacons[bIdx].filteredRssi = fr;
-                            $("#BTLog").prepend(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + "::: " + fr + " ::: xx" + self.beacons[bIdx].rssi + "xx<br><br>");
+                            $("#BTLog").prepend(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + ":::* filtered:  " + fr + " d: " +d2 + "m   ::: xx" + self.beacons[bIdx].rssi + "xx<br><br>");
                             $("#BTLog").prepend(device.id.toString() + ": " + d + " m " + " " + avgRssi + "<br><br>");
                         } else {
 
