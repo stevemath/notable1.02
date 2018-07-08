@@ -140,7 +140,7 @@ var scanBLE = {
                             samplingComplete = true;
                            // alert(self.beacons[bIdx].rssi);
                            // alert(filterArray(self.beacons[bIdx].rssi,5))
-                            var fr = filterArray(self.beacons[bIdx].rssi,5);
+                            var fr = filterArray(self.beacons[bIdx].rssi,1.4);
                             self.beacons[bIdx].filteredRssi = fr;
                             $("#BTLog").append(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + "::: " + fr + " ::: " + self.beacons[bIdx].rssi + "<br><br>");
                             $("#BTLog").prepend(device.id.toString() + ": " + d + " m " + " " + avgRssi + "<br><br>");
