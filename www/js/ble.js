@@ -147,7 +147,7 @@ var scanBLE = {
                             samplingComplete = true;
                           
                           
-                            var fr = filterArray(self.beacons[bIdx].rssi, 1.1);
+                            var fr = filterArray(self.beacons[bIdx].rssi, 1.0);
 
                             var d2 = calcDistance(tx, fr);
                             self.beacons[bIdx].filteredRssi = fr;
