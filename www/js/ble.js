@@ -176,20 +176,20 @@ var scanBLE = {
 
 
                             // reset device once it is too far away?
-                    if (device.id == self.beacons[bIdx].id && self.beacons[bIdx].avgRSSI > -55 && self.beacons[bIdx].samples >= self.maxSampling) {
-                        self.beacons[bIdx].rssi = [];
-                        $("#BTLog").prepend(JSON.stringify(device) + "<br><br>");
-                        var id = device.id;
-                      // self.connectTo(id, bIdx);
-                        alert("beacon calibrated");
-                        self.beacons[bIdx].samples = 0;
-                        self.beacons[bIdx].totalRSSI = 0;
-                        ble.stopScan(function () {
-                            self.isScanning = false;
+                    //if (device.id == self.beacons[bIdx].id && self.beacons[bIdx].avgRSSI > -55 && self.beacons[bIdx].samples >= self.maxSampling) {
+                    //    self.beacons[bIdx].rssi = [];
+                    //    $("#BTLog").prepend(JSON.stringify(device) + "<br><br>");
+                    //    var id = device.id;
+                    //  // self.connectTo(id, bIdx);
+                    //  //  alert("beacon calibrated");
+                    //    self.beacons[bIdx].samples = 0;
+                    //    self.beacons[bIdx].totalRSSI = 0;
+                    //    ble.stopScan(function () {
+                    //        self.isScanning = false;
 
-                        });
-                        connected = true;
-                    }
+                    //    });
+                    //    connected = true;
+                    //}
   }
                     });
 
