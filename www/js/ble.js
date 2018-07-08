@@ -39,6 +39,7 @@ var scanBLE = {
         var self = this;
        // var d = calcDistance(-70, -64)
        // alert(d)
+        //ibks
         var beacon = { id: "FB:40:29:8D:AB:59", avgRSSI: -1000, tx: -58, totalRSSI: 0, filteredRssi: 0,rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
@@ -48,6 +49,8 @@ var scanBLE = {
         var beacon = { id: "C6:50:BC:AE:B2:B6", avgRSSI: -1000, tx: -58, totalRSSI: 0, filteredRssi: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
+
+        //kst
         var beacon = { id: "C0:0A:9C:AD:EC:05", avgRSSI: -1000, tx: -70, filteredRssi: 0,totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
@@ -147,7 +150,7 @@ var scanBLE = {
                             samplingComplete = true;
                           
                           
-                            var fr = filterArray(self.beacons[bIdx].rssi, 1.0);
+                            var fr = filterArray(self.beacons[bIdx].rssi, 1.05);
 
                             var d2 = calcDistance(tx, fr);
                             self.beacons[bIdx].filteredRssi = fr;
