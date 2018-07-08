@@ -129,5 +129,5 @@ var filterArray = function (valArr, obs) {
         console.log(arravg(filteredValues));
         console.log(arravg(arrfvals))
 
-    return (arravg(arrfvals))
+        return (arravg(filteredValues))
 }
