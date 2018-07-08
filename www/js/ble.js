@@ -69,9 +69,9 @@ var scanBLE = {
         $.map(self.beacons, function (elem, index) {
 
                 elem.samples = 0;
-                elem.totaalRSSI = 0;
-                elem.filtered.Rssi = 0;
-                eem.rssi = [];
+                elem.totalRSSI = 0;
+                elem.filteredRssi = 0;
+                elem.rssi = [];
             });
        // alert("Start Scanning?");
         connected = false;
