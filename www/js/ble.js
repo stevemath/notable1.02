@@ -135,7 +135,7 @@ var scanBLE = {
                         var avgRssi = self.beacons[bIdx].avgRSSI
                         var tx = self.beacons[bIdx].tx;
                         var d = calcDistance(tx, avgRssi);
-                        alert(self.beacons[bIdx].rssi);
+                       // alert(self.beacons[bIdx].rssi);
                         if (self.beacons[bIdx].samples == self.maxSampling) {
                             samplingComplete = true;
                             alert(self.beacons[bIdx].rssi);
