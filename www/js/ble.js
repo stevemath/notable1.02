@@ -51,7 +51,7 @@ var scanBLE = {
         var beacon = { id: "C0:0A:9C:AD:EC:05", avgRSSI: -1000, tx: -70, filteredRssi: 0,totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
-        var beacon = { id: "F7:53:A3:80:C9:BE", avgRSSI: -1000, tx: -58,filteredRssi:0,totalRSSI: 0, rssi: [], samples: 0 };
+        var beacon = { id: "F7:53:A3:80:C9:BE", avgRSSI: -1000, tx: -70,filteredRssi:0,totalRSSI: 0, rssi: [], samples: 0 };
         self.beacons.push(beacon);
 
         //beacon = { id: "EF:8A:07:B0:0E:3A", avgRSSI: -1000, totalRSSI: 0, rssi: [], samples: 0 };
@@ -151,7 +151,7 @@ var scanBLE = {
 
                             var d2 = calcDistance(tx, fr);
                             self.beacons[bIdx].filteredRssi = fr;
-                            $("#BTLog").prepend(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + ":::* filtered:  " + fr + " d: " +d2 + "m   ::: xx" + self.beacons[bIdx].rssi + "xx<br><br>");
+                            $("#BTLog").prepend(bIdx + "  " + device.id.toString() + ": " + self.beacons[bIdx].avgRSSI + ":::* filtered:  " + fr + " d2: " +d2 + "m   ::: xx" + self.beacons[bIdx].rssi + "xx<br><br>");
                             $("#BTLog").prepend(device.id.toString() + ": " + d + " m " + " " + avgRssi + "<br><br>");
                         } else {
 
