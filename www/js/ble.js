@@ -124,7 +124,7 @@ var scanBLE = {
                             self.beacons[bIdx].rssi.shift();
                         }
 
-                       // $("#BTLog").prepend(self.beacons[bIdx].rssi.join(",") + "<br><br>");
+                        $("#BTLog").prepend(self.beacons[bIdx].rssi.join(",") + "<br><br>");
 
                         var sum = self.beacons[bIdx].rssi.reduce((a, b) => a + b, 0);
                         self.beacons[bIdx].totalRSSI = sum;
